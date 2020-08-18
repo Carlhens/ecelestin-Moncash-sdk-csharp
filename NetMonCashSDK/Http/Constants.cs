@@ -17,6 +17,7 @@ namespace NetMonCashSDK.Http
         public static String PAYMENT_CREATOR_URI { get { return "/v1/CreatePayment"; } }
         public static String PAYMENT_TRANSACTION_URI { get { return "/v1/RetrieveTransactionPayment"; } }
         public static String PAYMENT_ORDER_URI { get { return "/v1/RetrieveOrderPayment"; } }
+        public static string TRANSFERT_URI { get { return "/v1/Transfert"; } }
 
         public static String REST_SANDBOX_ENDPOINT { get { return "https://sandbox.moncashbutton.digicelgroup.com/Api"; } }
         public static String REST_LIVE_ENDPOINT { get { return "https://moncashbutton.digicelgroup.com/Api"; } }

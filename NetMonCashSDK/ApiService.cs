@@ -163,5 +163,34 @@ namespace NetMonCashSDK
         }
 
 
+
+        public async Task<TransfertResult> transfert(Transfert transfert)
+        {
+            var url = "";
+
+            if (mode.Equals(Constants.SANDBOX))
+                url = Constants.REST_SANDBOX_ENDPOINT;
+            else if (mode.Equals(Constants.LIVE))
+                url = Constants.REST_LIVE_ENDPOINT;
+            else
+                throw new ArgumentException($"Mode must be {Constants.SANDBOX} or {Constants.LIVE}");
+
+            url += Constants.TRANSFERT_URI;
+
+            var token = await getAuthorizationOauth();
+
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add(Constants.HTTP_ACCEPT_HEADER, Constants.HTTP_APPLICATION_JSON);
+            //client.DefaultRequestHeaders.Add(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_APPLICATION_JSON);
+            client.DefaultRequestHeaders.Add(Constants.HTTP_AUTHORIZATION_HEADER, token);
+
+            var requestJson = new StringContent(JsonConvert.SerializeObject(transfert), Encoding.UTF8, "application/json");
+
+            var res = await client.PostAsync(url, requestJson);
+            var resContent = await res.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<TransfertResult>(resContent);
+        }
+
     }
 }

@@ -18,7 +18,7 @@ namespace NetMonCashSDK.Test
             var payment = new Payment($"{milliseconds}", 500);
             PaymentCreator creator = apiService.paymentCreator(payment).Result;
 
-            if (creator.status != null && creator.status.Equals($"{(int)HttpStatusCode.Accepted}"))
+            if (creator.status != null && (creator.status.Equals($"{(int)HttpStatusCode.OK}") || creator.status.Equals($"{(int)HttpStatusCode.Accepted}")))
             {
                 Console.WriteLine("redirect to the link below");
                 Console.WriteLine(creator.redirectUri());
